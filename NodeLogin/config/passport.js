@@ -7,12 +7,11 @@ try{
 mysql.connect(dbconfig.connection, (err) =>{
   if (err) console.log(err)
   let sqlRequest=new mysql.Request();
-  sqlRequest.query('USE ' + dbconfig.database);
 });}catch(err){
   console.log("In Catch Block")
   console.log(err);
 }
-module.exports = (passport) => {
+module.export = (passport) => {
  passport.serializeUser((user, done)=>done(null, user.id));
 
  passport.deserializeUser((id,done) =>{

@@ -1,7 +1,7 @@
 module.exports = {
  'connection':{
-  'host':'http://unagisqlserver.database.windows.net',
-  'user':'',
-  'password':'',
+  'server':'unagisqlserver.database.windows.net',
+  'user':'Dhanush',
+  'password':'Dan@123#',
   'database':'unagi',
 }}

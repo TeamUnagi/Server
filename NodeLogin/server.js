@@ -9,7 +9,7 @@ var port = process.env.PORT || 8080;
 var passport = require('./config/passport.js');
 var flash = require('connect-flash');
 
-require('./config/passport.js')(passport);
+var passport=require('./config/passport.js');
 
 app.use(morgan('dev'));
 app.use(cookieParser());
