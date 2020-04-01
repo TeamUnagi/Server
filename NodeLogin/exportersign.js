@@ -1,0 +1,58 @@
+const express=require("express");
+const app=express();
+var mysql = require('mssql');
+var dbconfig = require('./config/database');
+const bodyParser = require('body-parser'); 
+app.use(bodyParser.json()); 
+const PORT=4000;
+try
+{
+    mysql.connect(dbconfig.connection, (err) =>{
+    if (err) console.log(err)
+    global.sqlRequest=new mysql.Request();
+    })
+}
+catch(err)
+{
+      console.log(err);
+}
+function parse(str) {
+    var args = [].slice.call(arguments, 1),
+        i = 0;
+  
+    return str.replace(/%s/g, () => args[i++]);
+  }
+app.post("/exportersigninuserinfo",(req,res)=> {
+message={message:'message'};
+userinfo=req.body;
+sqlRequest.query(parse("SELECT * FROM dbo.Exporter WHERE Email = '%s' ", userinfo.Email), (err, rows) => {
+    if(err){console.log(err);}
+     if(rows.rowsAffected==1){
+         message.message='unsuccessfully'
+         res.send(message)
+     }
+     else{ 
+        sqlRequest.query(parse("SELECT * FROM dbo.Exporter WHERE Username = '%s' ", userinfo.Username),(err, row)=>{
+            if(err){console.log(err);}
+            if(row.rowsAffected==1){
+                message.message='user'
+                res.send(message)
+            }
+            else{
+                message.message='success'
+                sqlRequest.query(parse("INSERT INTO dbo.Exporter (Username,Password,Email,Company,Fullname) values ('%s', '%s','%s','%s','%s')",
+                userinfo.Username,userinfo.Password,userinfo.Email,userinfo.Company,userinfo.Fullname),(err)=>{
+                    if(err)
+                     {console.log(err)}
+                    else{
+                        message.message='success'
+                        res.send(message)
+                    }
+                })
+            }
+        })
+     }
+  
+
+})})
+app.listen(PORT,()=>console.log("Server is ready at "+PORT));
