@@ -1,35 +1,16 @@
-var express = require('express');
-var session = require('express-session');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var morgan = require('morgan');
-var app = express();
-var port = process.env.PORT || 8080;
-
-var passport = require('./config/passport.js');
-var flash = require('connect-flash');
-
-var passport=require('./config/passport.js');
-
-app.use(morgan('dev'));
-app.use(cookieParser());
-app.use(bodyParser.urlencoded({
- extended: true
-}));
-
-app.set('view engine', 'ejs');
-
-app.use(session({
- secret: 'justasecret',
- resave:true,
- saveUninitialized: true
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
-
-require('./app/routes.js')(app, passport);
-
-app.listen(port);
-console.log("Port: " + port);
+const express=require("express");
+const app=express();
+var mysql = require('mssql');
+var dbconfig = require('./Database/database');
+const bodyParser = require('body-parser'); 
+app.use(bodyParser.json()); 
+const PORT=4000;
+/*exSign=require("./signuplogin/exportersign");
+farmSign=require("./signuplogin/farmersign")
+login=require("./signuplogin/loginuser")
+app.use('/',exSign());
+app.use('/',farmSign());
+app.use('/',login())*/
+signupLogin=require("./signuplogin");
+app.use('/',signupLogin);
+app.listen(PORT);
