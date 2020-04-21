@@ -1,10 +1,7 @@
 const express=require("express");
-const app=express();
-const bodyParser = require('body-parser'); ;
+const router=express.Router();
 var mysql = require('mssql');
 var dbconfig = require('C:\\Users\\User\\Desktop\\NodeUnagi\\gitrepo\\ServerSideUnagi\\NodeLogin\\Database\\database.js');
-const PORT=4000;
-app.use(bodyParser.json()); 
 try
 {
     mysql.connect(dbconfig.connection, (err) =>{
@@ -22,7 +19,8 @@ function parse(str) {
   
     return str.replace(/%s/g, () => args[i++]);
   }
-app.post("/FarmerProfDisplay",(req,res)=>{
+module.exports = () => {
+router.post("/",(req,res)=>{
     farmerId=req.body.farmerId;
     console.log(farmerId)
     sqlRequest.query(parse("SELECT * FROM dbo.Farmer WHERE id = %s", farmerId), (err, rows) => {
@@ -55,4 +53,5 @@ app.post("/FarmerProfDisplay",(req,res)=>{
         }
     })
 })
-app.listen(PORT);
+return router;
+}

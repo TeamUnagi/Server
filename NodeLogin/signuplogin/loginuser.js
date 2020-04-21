@@ -2,7 +2,6 @@ const express=require("express");
 const router=express.Router();
 var mysql = require('mssql');
 var dbconfig = require('C:\\Users\\User\\Desktop\\NodeUnagi\\gitrepo\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
-const PORT=4000;
 try
 {
     mysql.connect(dbconfig.connection, (err) =>{
@@ -26,12 +25,17 @@ router.post("/",(req,res)=> {
     sqlRequest.query(parse("SELECT * FROM dbo.Farmer WHERE Username = '%s' AND Password = '%s'", loginInfo.Username,loginInfo.Password), (err,rows) => {
         if(err){console.log(err);}   
         if(rows.rowsAffected==1){
-               res.send({message:'success'})
+               message={message:'success',id:rows.recordset[0].id,name:rows.recordset[0].Fullname}
+               res.send(message)
+               console.log(message)
            }else{
-            sqlRequest.query(parse("SELECT * FROM dbo.Exporter WHERE Username = '%s' AND Password = '%s'", loginInfo.Username,loginInfo.Password), (err,rows) => {
+            sqlRequest.query(parse("SELECT * FROM dbo.Exporter WHERE Username = '%s' AND Password = '%s'", loginInfo.Username,loginInfo.Password), (err,row) => {
+
                 if(err){console.log(err);}
-                if(rows.rowsAffected==1){
-                    res.send({message:'success'})
+                if(row.rowsAffected==1){
+                    message={message:'success',id:row.recordset[0].id,name:row.recordset[0].Fullname}
+                    res.send(message)
+                    console.log(message)
                 }
                 else{
                     res.send({message:'unsuccessful'})
