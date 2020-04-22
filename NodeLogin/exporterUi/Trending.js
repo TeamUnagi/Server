@@ -1,7 +1,7 @@
 const express=require("express");
 const router=express.Router();
 var mysql = require('mssql');
-var dbconfig = require('C:\\Users\\User\\Desktop\\NodeUnagi\\gitrepo\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
+var dbconfig = require('C:\\Users\\Yeshan\\Documents\\unagiServergit\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
 try
 {
     mysql.connect(dbconfig.connection, (err) =>{
@@ -21,17 +21,19 @@ function parse(str) {
   }
 module.exports = () => {
 router.get("/",(req,res)=> {
-    sqlRequest.query(parse("SELECT * FROM dbo.VegetableImports WHERE ImportYear=2020 ORDER BY Vegetable"), (err,rows) => {
+    sqlRequest.query(parse("SELECT * FROM dbo.VegetableImports WHERE ImportYear=2020 OR ImportYear=2021 ORDER BY Vegetable"), (err,rows) => {
         if(err){console.log(err);}   
         else{
-            array1=rows.recordset;
-            array3=rows.recordset
-            sqlRequest.query(parse("SELECT * FROM dbo.VegetableImports WHERE ImportYear=2021 ORDER BY Vegetable"), (err,row) => {
-                if(err){console.log(err);}
-                else
-                {
-                    array2=row.recordset;
-                    array4=row.recordset;
+            array1=[];
+            array2=[];
+            for(var k=0;k<rows.rowsAffected[0];k++)
+            {
+                if(rows.recordset[k].ImportYear==2020){
+                    array1.push(rows.recordset[k]);}
+                    else{
+                        array2.push(rows.recordset[k]);
+                    }
+            }
                     Torder=[];
                     while (array2.length>0)
                     {
@@ -45,13 +47,12 @@ router.get("/",(req,res)=> {
                                 Lposition=j;
                             }
                         }
+                        largest=Math.round(largest*100)/100
                         Torder.push({Vegetable:array2[Lposition].Vegetable,Import:array2[Lposition].Imports,Percentage:largest})
                         array1.splice(Lposition,1);
                         array2.splice(Lposition,1);
                     }
-                    res.send(Torder)
-                }
-            })
+                    res.send(Torder)  
         }
         });
     })
