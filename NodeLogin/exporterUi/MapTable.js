@@ -1,7 +1,7 @@
 const express=require("express");
 const router=express.Router();
 var mysql = require('mssql');
-var dbconfig = require('C:\\Users\\User\\Desktop\\nodeunag\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
+var dbconfig = require('C:\\Users\\User\\Desktop\\node\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
 try
 {
     mysql.connect(dbconfig.connection, (err) =>{
@@ -28,7 +28,7 @@ router.post("/",(req,res)=> {
         else{
             for(i=0;i<rows.rowsAffected[0];i++)
             {
-                message.push({Name:rows.recordset[i].Fullname,ID:rows.recordset[i].id})
+                message.push({Name:rows.recordset[i].Fullname,ID:rows.recordset[i].id,Key:i+1})
             }
             console.log(message)
             res.send(message)
