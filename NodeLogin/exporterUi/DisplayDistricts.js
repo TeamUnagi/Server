@@ -48,7 +48,7 @@ function parse(str) {
             } 
                 //console.log(Locations)
                 //console.log(Farmers)
-                res.send({District:Locations,Farmer:Farmers});
+                res.send({District:Locations,Farmer:Farmers})
                 
             }
 

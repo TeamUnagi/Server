@@ -52,7 +52,7 @@ router.get("/",(req,res)=> {
                         array1.splice(Lposition,1);
                         array2.splice(Lposition,1);
                     }
-                    res.send(Torder)  
+                    res.send(Torder);  
         }
         });
     })

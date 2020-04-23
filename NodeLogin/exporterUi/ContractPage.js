@@ -28,7 +28,7 @@ contractinfo.ExId,contractinfo.FarmerId,contractinfo.Weight,contractinfo.Vegetab
     if(err){console.log(err);}
     else
     {
-        res.send('success');
+        res.send('success')
     }
 })})
 return router;

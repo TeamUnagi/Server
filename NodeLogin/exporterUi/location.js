@@ -32,7 +32,7 @@ function parse(str) {
                 Vegetables.push({Vegetable:row.recordset[i].Vegetables})
                 //console.log(row.recordset[i].Vegetables);
             }
-            res.send(Vegetables)   
+            res.send(Vegetables);   
         }
     
     })

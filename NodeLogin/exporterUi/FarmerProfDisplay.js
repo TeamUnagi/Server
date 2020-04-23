@@ -22,7 +22,7 @@ function parse(str) {
 module.exports = () => {
 router.post("/",(req,res)=>{
     farmerId=req.body.farmerId;
-    console.log(farmerId)
+    console.log(farmerId);
     sqlRequest.query(parse("SELECT * FROM dbo.Farmer WHERE id = %s", farmerId), (err, rows) => {
         if(err){console.log(err);}
         else{
