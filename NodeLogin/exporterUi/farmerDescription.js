@@ -1,7 +1,7 @@
 const express=require("express");
 const router=express.Router();
 var mysql = require('mssql');
-var dbconfig = require('C:\\Users\\Yeshan\\Documents\\unagiServergit\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
+var dbconfig = require('C:\\Users\\User\\Desktop\\nodeunag\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
 try
 {
     mysql.connect(dbconfig.connection, (err) =>{
@@ -21,11 +21,10 @@ function parse(str) {
   }
   module.exports = () => {
     router.post("/", (req,res) => {
-        var userName = req.body.UserName;
+        var userName = req.body.Username;
         var description = req.body.Description;
-        var phone = req.body.Phone;
-
-        sqlRequest.query(parse("UPDATE dbo.Farmer SET Description = '%s', Number = '%s' WHERE Username='%s'",description,phone,userName) , (err) => {
+        var  Number = req.body.Number;
+        sqlRequest.query(parse("UPDATE dbo.Farmer SET Description = '%s', Number = '%s' WHERE Username='%s'",description,Number,userName) , (err) => {
             if(err){console.log(err);}
             else{
                 res.send('Done');

@@ -19,22 +19,21 @@ function parse(str) {
   
     return str.replace(/%s/g, () => args[i++]);
   }
-  module.exports = () => {
- router.post("/", (req,res) => {
-    var location=req.body.Location;
-    Vegetables = [];
-    sqlRequest.query(parse("SELECT * FROM dbo.OptimimDistrictsForVegetables WHERE District='%s'",location) , (err, row) => {
-        if(err){console.log(err);}
+module.exports = () => {
+router.post("/",(req,res)=> {
+    location=req.body.Location
+    var message=[];
+    sqlRequest.query(parse("SELECT * FROM dbo.Farmer WHERE Location='%s' ",location), (err,rows) => {
+        if(err){console.log(err);}   
         else{
-            for(i = 0; i < row.rowsAffected[0]; i++){
-                Vegetables.push({Vegetable:row.recordset[i].Vegetables})
+            for(i=0;i<rows.rowsAffected[0];i++)
+            {
+                message.push({Name:rows.recordset[i].Fullname,ID:rows.recordset[i].id})
             }
-            res.send(Vegetables)
+            console.log(message)
+            res.send(message)
         }
-    
+        });
     })
-
-
- })
- return router
+    return router;
 }
