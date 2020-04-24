@@ -1,7 +1,7 @@
 const express=require("express");
 const router=express.Router();
 var mysql = require('mssql');
-var dbconfig = require('C:\\Users\\Yeshan\\Documents\\unagiServergit\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
+var dbconfig = require('C:\\Users\\User\\Desktop\\node\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
 try
 {
     mysql.connect(dbconfig.connection, (err) =>{
@@ -19,12 +19,13 @@ function parse(str) {
   
     return str.replace(/%s/g, () => args[i++]);
   }
-
+  function getOccurrence(array, value) {
+    return array.filter((v) => (v === value)).length;
+}
   module.exports = () => {
     router.post("/", (req,res) => {
         Locations = [];
         Farmers = [];
-        farmerCount = 0;
         vegetable = req.body.Vegetable;
 
         sqlRequest.query(parse("SELECT od.District AS Districts FROM dbo.OptimimDistrictsForVegetables AS od  JOIN dbo.Farmer AS fm ON od.District = fm.Location WHERE od.Vegetables = '%s'",vegetable) , (err,row) => {
@@ -35,20 +36,25 @@ function parse(str) {
                     Locations.push(Location);
                       
                 }
+                NewLocation=[];
+                farmerCount=[];
                 for(x = 0; x < Locations.length; x ++){
-                    for(i = 0; i < Locations.length; i ++){ 
-                     if(Locations[x] == Locations[i])  {
-                        farmerCount = farmerCount + 1
-                        Locations.splice((i),1);
+                    if(!NewLocation.includes(Locations[x]))
+                    {
+                        NewLocation.push(Locations[x])
                     }
+                 } 
+                 for(y=0;y<NewLocation.length;y++)
+                 {
+                     n=getOccurrence(Locations,NewLocation[y])
+                     farmerCount.push(n)
+                 }
+                message=[]
+                for(z=0;z<NewLocation.length;z++)
+                {
+                    message.push({District:NewLocation[z],Farmer:farmerCount[z]})
                 }
-                Farmers.push(farmerCount+1)
-                farmerCount = 0;
-
-            } 
-                //console.log(Locations)
-                //console.log(Farmers)
-                res.send({District:Locations,Farmer:Farmers})
+                res.send(message)
                 
             }
 

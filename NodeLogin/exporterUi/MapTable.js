@@ -30,7 +30,6 @@ router.post("/",(req,res)=> {
             {
                 message.push({Name:rows.recordset[i].Fullname,ID:rows.recordset[i].id,Key:i+1})
             }
-            console.log(message)
             res.send(message)
         }
         });
