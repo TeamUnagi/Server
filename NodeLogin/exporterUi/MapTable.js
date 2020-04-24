@@ -19,19 +19,21 @@ function parse(str) {
   
     return str.replace(/%s/g, () => args[i++]);
   }
-  module.exports = () => {
-    router.post("/", (req,res) => {
-        var userName = req.body.Username;
-        var description = req.body.Description;
-        var  Number = req.body.Number;
-        sqlRequest.query(parse("UPDATE dbo.Farmer SET Description = '%s', Number = '%s' WHERE Username='%s'",description,Number,userName) , (err) => {
-            if(err){console.log(err);}
-            else{
-                res.send('Done');
+module.exports = () => {
+router.post("/",(req,res)=> {
+    location=req.body.Location
+    var message=[];
+    sqlRequest.query(parse("SELECT * FROM dbo.Farmer WHERE Location='%s' ",location), (err,rows) => {
+        if(err){console.log(err);}   
+        else{
+            for(i=0;i<rows.rowsAffected[0];i++)
+            {
+                message.push({Name:rows.recordset[i].Fullname,ID:rows.recordset[i].id,Key:i+1})
             }
-        })
-
-    
-     })
-     return router;
-  }
+            console.log(message)
+            res.send(message)
+        }
+        });
+    })
+    return router;
+}
