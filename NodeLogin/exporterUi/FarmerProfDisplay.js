@@ -43,10 +43,16 @@ router.post("/",(req,res)=>{
                               message2.push({Name:exportName[j],Vegetable:row.recordset[j].Vegetable,Weight:row.recordset[j].Weight})
                             }
                              message={row1:rows.recordset,row2:message2}
+                             console.log(message)
                              res.send(message)
                          }
                      }
                     })
+                   }
+                   if(row.rowsAffected[0]==0)
+                   {
+                       message={row1:rows.recordset,row2:"No"}
+                       res.send(message)
                    }
             }
             })

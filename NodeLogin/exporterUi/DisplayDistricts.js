@@ -33,8 +33,7 @@ function parse(str) {
             else{
                 for(i = 0; i < row.rowsAffected[0]; i++){
                     Location=row.recordset[i].Districts
-                    Locations.push(Location);
-                      
+                    Locations.push(Location);   
                 }
                 NewLocation=[];
                 farmerCount=[];
@@ -52,10 +51,10 @@ function parse(str) {
                 message=[]
                 for(z=0;z<NewLocation.length;z++)
                 {
-                    message.push({District:NewLocation[z],Farmer:farmerCount[z]})
+                    message.push({Location:NewLocation[z],Farmer:farmerCount[z]})
                 }
-                res.send(message)
-                
+                console.log(message)
+                res.send(message)  
             }
 
         })
