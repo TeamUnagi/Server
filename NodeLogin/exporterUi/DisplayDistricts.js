@@ -2,6 +2,7 @@ const express=require("express");
 const router=express.Router();
 var mysql = require('mssql');
 var dbconfig = require('C:\\Users\\Yeshan\\Documents\\unagiServergit\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
+
 try
 {
     mysql.connect(dbconfig.connection, (err) =>{
@@ -34,7 +35,7 @@ function parse(str) {
                 for(i = 0; i < row.rowsAffected[0]; i++){
                     Location=row.recordset[i].Districts
                     Locations.push(Location);
-                      
+
                 }
                 NewLocation=[];
                 farmerCount=[];
@@ -49,11 +50,13 @@ function parse(str) {
                      n=getOccurrence(Locations,NewLocation[y])
                      farmerCount.push(n)
                  }
-                //console.log(Locations)
-                //console.log(Farmers)
-               // console.log({District:NewLocation,Farmer:Farmers})
-                res.send({District:NewLocation,Farmer:farmerCount})
-                
+                message=[]
+                for(z=0;z<NewLocation.length;z++)
+                {
+                    message.push({Location:NewLocation[z],Farmer:farmerCount[z]})
+                }
+                console.log(message)
+                res.send(message)  
             }
 
         })

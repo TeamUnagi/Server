@@ -23,6 +23,7 @@ module.exports = () => {
 router.post("/",(req,res)=> {
 console.log("successful")
 contractinfo=req.body;
+console.log(contractinfo.ExId,contractinfo.FarmerId,contractinfo.Weight,contractinfo.VegetableChosen,contractinfo.EndDate,contractinfo.Comment)
 sqlRequest.query(parse("INSERT INTO dbo.Contract (ExId,FarmId,Weight,Vegetable,EndDate,Comment) values ('%s', '%s','%s','%s','%s','%s')",
 contractinfo.ExId,contractinfo.FarmerId,contractinfo.Weight,contractinfo.VegetableChosen,contractinfo.EndDate,contractinfo.Comment), (err, rows) => {
     if(err){console.log(err);}

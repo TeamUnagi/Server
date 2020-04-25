@@ -5,8 +5,12 @@ const FarmerProfDisplay= require('./FarmerProfDisplay');
 const Trending=require('./Trending');
 const location=require('./location')
 const UpdateFarmerDescription=require('./farmerDescription')
+
 const DisplayDistrics=require('./DisplayDistricts')
 const MapTable=require('./MapTable')
+const FarmerContracts=require('./contracts')
+const ContractInfoToFarmer=require('./showContractInfo')
+
 
 const router = express.Router();
 
@@ -16,8 +20,13 @@ module.exports = () =>
     router.use('/FarmerProfDisplay',FarmerProfDisplay());
     router.use('/VegetableImports',Trending());
     router.use('/LocationVegetables',location());
+    router.use('/updateFarmerData',UpdateFarmerDescription())
+    router.use('/MapTable',MapTable())
     router.use('/updateFarmerData',UpdateFarmerDescription());
     router.use('/sendFarmerLocations',DisplayDistrics());
-    router.use('/MapTable',MapTable())
-    return router;
+    router.use('/sendExporterContracts',FarmerContracts());
+    router.use('/sendContractInfoToFarmer',ContractInfoToFarmer());
+
+
+     return router;
 };

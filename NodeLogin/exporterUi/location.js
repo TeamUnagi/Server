@@ -26,18 +26,11 @@ function parse(str) {
     sqlRequest.query(parse("SELECT * FROM dbo.OptimimDistrictsForVegetables WHERE District='%s'",location) , (err, row) => {
         if(err){console.log(err);}
         else{
-
-           //console.log(row.recordset[0].Vegetables);
             for(i = 0; i < row.rowsAffected[0]; i++){
                 Vegetables.push({Vegetable:row.recordset[i].Vegetables});
-                //console.log(row.recordset[i].Vegetables);
             }
             res.send(Vegetables);   
 
-          /*  for(i = 0; i < row.rowsAffected[0]; i++){
-                Vegetables.push({Vegetable:row.recordset[i].Vegetables});
-            }
-            res.send(Vegetables) */
         }
     
     })

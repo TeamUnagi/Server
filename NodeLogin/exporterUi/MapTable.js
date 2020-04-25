@@ -1,7 +1,9 @@
 const express=require("express");
 const router=express.Router();
 var mysql = require('mssql');
+
 var dbconfig = require('C:\\Users\\Yeshan\\Documents\\unagiServergit\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
+
 try
 {
     mysql.connect(dbconfig.connection, (err) =>{
@@ -30,7 +32,6 @@ router.post("/",(req,res)=> {
             {
                 message.push({Name:rows.recordset[i].Fullname,ID:rows.recordset[i].id,Key:i+1})
             }
-            console.log(message)
             res.send(message)
         }
         });
