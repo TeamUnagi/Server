@@ -7,4 +7,6 @@ signupLogin=require("./signuplogin");
 app.use('/',signupLogin());
 exporterui=require("./exporterUi")
 app.use('/',exporterui())
+farmerui=require("./FarmerUi");
+app.use('/',farmerui())
 app.listen(PORT);

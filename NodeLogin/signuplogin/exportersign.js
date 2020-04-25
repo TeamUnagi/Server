@@ -39,8 +39,8 @@ sqlRequest.query(parse("SELECT * FROM dbo.Exporter WHERE Email = '%s' ", userinf
             }
             else{
                 message.message='success'
-                sqlRequest.query(parse("INSERT INTO dbo.Exporter (Username,Password,Email,Company,Fullname) values ('%s', '%s','%s','%s','%s')",
-                userinfo.Username,userinfo.Password,userinfo.Email,userinfo.Company,userinfo.Fullname),(err)=>{
+                sqlRequest.query(parse("INSERT INTO dbo.Exporter (Username,Password,Email,Company,Fullname,Number) values ('%s', '%s','%s','%s','%s','%s')",
+                userinfo.Username,userinfo.Password,userinfo.Email,userinfo.Company,userinfo.Fullname,userinfo.Number),(err)=>{
                     if(err)
                      {console.log(err)}
                     else{
