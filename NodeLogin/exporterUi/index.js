@@ -8,8 +8,6 @@ const UpdateFarmerDescription=require('./farmerDescription')
 
 const DisplayDistrics=require('./DisplayDistricts')
 const MapTable=require('./MapTable')
-const FarmerContracts=require('./contracts')
-const ContractInfoToFarmer=require('./showContractInfo')
 
 
 const router = express.Router();
@@ -24,8 +22,6 @@ module.exports = () =>
     router.use('/MapTable',MapTable())
     router.use('/updateFarmerData',UpdateFarmerDescription());
     router.use('/sendFarmerLocations',DisplayDistrics());
-    router.use('/sendExporterContracts',FarmerContracts());
-    router.use('/sendContractInfoToFarmer',ContractInfoToFarmer());
 
 
      return router;
