@@ -55,7 +55,6 @@ function parse(str) {
                 {
                     message.push({Location:NewLocation[z],Farmer:farmerCount[z]})
                 }
-                console.log(message)
                 res.send(message)  
             }
 

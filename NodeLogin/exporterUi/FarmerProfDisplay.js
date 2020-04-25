@@ -24,7 +24,10 @@ function parse(str) {
 module.exports = () => {
 router.post("/",(req,res)=>{
     farmerId=req.body.farmerId;
+<<<<<<< HEAD
     console.log(farmerId);
+=======
+>>>>>>> 2a7a17482e36743e88c211b4368207931508237d
     sqlRequest.query(parse("SELECT * FROM dbo.Farmer WHERE id = %s", farmerId), (err, rows) => {
         if(err){console.log(err);}
         else{
@@ -45,7 +48,6 @@ router.post("/",(req,res)=>{
                               message2.push({Name:exportName[j],Vegetable:row.recordset[j].Vegetable,Weight:row.recordset[j].Weight})
                             }
                              message={row1:rows.recordset,row2:message2}
-                             console.log(message)
                              res.send(message)
                          }
                      }
