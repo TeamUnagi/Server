@@ -27,9 +27,16 @@ function parse(str) {
             if(err){console.log(err);}
             for(var i=0;i<row.rowsAffected[0];i++)
             {
-                name.push({Id:row.recordset[i].Contractid,Name:row.recordset[i].Fullname})
+                name.push({Id:row.recordset[i].Contractid,Name:row.recordset[i].Fullname,Key:i+1})
             }
-            res.send(name);
+           if(row.rowsAffected[0]==0)
+            {
+                message=({Id:0,Name:0,Key:1})
+                res.send(message)
+            }
+            else{
+                res.send(name)
+            }
         })
     })
     return router;
