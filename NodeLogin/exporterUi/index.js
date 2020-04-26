@@ -5,8 +5,11 @@ const FarmerProfDisplay= require('./FarmerProfDisplay');
 const Trending=require('./Trending');
 const location=require('./location')
 const UpdateFarmerDescription=require('./farmerDescription')
-const MapTable=require('./MapTable')
+
 const DisplayDistrics=require('./DisplayDistricts')
+const MapTable=require('./MapTable')
+
+
 const router = express.Router();
 
 module.exports = () => 
@@ -19,5 +22,7 @@ module.exports = () =>
     router.use('/MapTable',MapTable())
     router.use('/updateFarmerData',UpdateFarmerDescription());
     router.use('/sendFarmerLocations',DisplayDistrics());
-    return router;
+
+
+     return router;
 };

@@ -1,6 +1,6 @@
 const express=require("express");
 var mysql = require('mssql');
-var dbconfig = require('C:\\Users\\User\\Desktop\\node\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
+var dbconfig = require('C:\\Users\\Yeshan\\Documents\\unagiServergit\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
 const router=express.Router();
 try
 {
@@ -22,6 +22,7 @@ function parse(str) {
 module.exports = () => {
 router.post("/",(req,res)=> {
 contractinfo=req.body;
+console.log(contractinfo.ExId,contractinfo.FarmerId,contractinfo.Weight,contractinfo.VegetableChosen,contractinfo.EndDate,contractinfo.Comment)
 sqlRequest.query(parse("INSERT INTO dbo.Contract (ExId,FarmId,Weight,Vegetable,EndDate,Comment) values ('%s', '%s','%s','%s','%s','%s')",
 contractinfo.ExId,contractinfo.FarmerId,contractinfo.Weight,contractinfo.VegetableChosen,contractinfo.EndDate,contractinfo.Comment), (err, rows) => {
     if(err){console.log(err);}
