@@ -1,7 +1,7 @@
 const express=require("express");
 const router=express.Router();
 var mysql = require('mssql');
-var dbconfig = require('C:\\Users\\Yeshan\\Documents\\unagiServergit\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
+var dbconfig = require('C:\\Users\\User\\Desktop\\node\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
 
 
 try
@@ -28,10 +28,9 @@ router.post("/",(req,res)=>{
     sqlRequest.query(parse("SELECT * FROM dbo.Farmer WHERE id = %s", farmerId), (err, rows) => {
         if(err){console.log(err);}
         else{
-            sqlRequest.query(parse("SELECT * FROM dbo.Contract WHERE FarmId = %s", farmerId), (err, row) => {
+            sqlRequest.query(parse("SELECT * FROM dbo.Contract WHERE FarmId = %s AND Accepted='Yes'", farmerId), (err, row) => {
                 if(err){console.log(err);}
                 else{
-                   // message={Name:rows.Username,Email:rows.Email,Number:rows.Number,Description:rows.Description};
                     exportName=[];
                     var message2=[];
                     var i=0;

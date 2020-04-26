@@ -1,7 +1,7 @@
 const express=require("express");
-const router=express.Router();
 var mysql = require('mssql');
 var dbconfig = require('C:\\Users\\User\\Desktop\\node\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
+const router=express.Router();
 try
 {
     mysql.connect(dbconfig.connection, (err) =>{
@@ -20,22 +20,15 @@ function parse(str) {
     return str.replace(/%s/g, () => args[i++]);
   }
   module.exports = () => {
- router.post("/", (req,res) => {
-    var location=req.body.Location;
-    Vegetables = [];
-    sqlRequest.query(parse("SELECT * FROM dbo.OptimimDistrictsForVegetables WHERE District='%s'",location) , (err, row) => {
-        if(err){console.log(err);}
-        else{
-            for(i = 0; i < row.rowsAffected[0]; i++){
-                Vegetables.push({Vegetable:row.recordset[i].Vegetables});
-            }
-            res.send(Vegetables);   
+    router.post("/",(req,res)=> {
+        res=req.body.Res
+        console.log(res)
+        Cid=req.body.Contractid
 
-        }
-    
+        sqlRequest.query(parse("UPDATE dbo.Contract SET Accepted='%s',FarmerRead='Yes' WHERE Contractid='%s' ",res,Cid) , (err,row) => {
+            if(err){console.log(err);}
+            console.log("done")
+        })
     })
-
-
- })
- return router
-}
+    return router;
+  }

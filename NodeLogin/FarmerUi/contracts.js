@@ -1,7 +1,7 @@
 const express=require("express");
 const router=express.Router();
 var mysql = require('mssql');
-var dbconfig = require('C:\\Users\\Yeshan\\Documents\\unagiServergit\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
+var dbconfig = require('C:\\Users\\User\\Desktop\\node\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
 try
 {
     mysql.connect(dbconfig.connection, (err) =>{
@@ -22,7 +22,8 @@ function parse(str) {
 
   module.exports = () => {
       router.post("/",(req,res) => {
-          farmerId = req.body.FarmId
+        console.log("came here")
+          farmerId = req.body.FarmerId
 
                      message=[];
                   sqlRequest.query(parse("SELECT ex.Fullname AS ExporterName, cn.Vegetable AS ExporterVegetables, cn.Contractid AS ContractId FROM dbo.Exporter AS ex JOIN dbo.Contract AS cn ON ex.id = cn.ExId WHERE cn.FarmId = '%s' AND cn.Accepted = 'Yes' ",farmerId )  , (err, row) => {
@@ -31,12 +32,16 @@ function parse(str) {
 
                         for(c = 0; c < row.rowsAffected[0]; c++){  
                           message.push({contractId:row.recordset[c].ContractId , Name : row.recordset[c].ExporterName ,  Vegetables:row.recordset[c].ExporterVegetables})
-                        }    
-                         
-                         console.log(message)
-                         res.send(message);
-
-  
+                        }  
+                        if(row.rowsAffected[0]==0)
+                        {
+                          res.send({contractId:0, Name : 0 ,  Vegetables:0})
+                        }  
+                        else
+                        {
+                          console.log(message)
+                          res.send(message);
+                        }
                       }
                 });
            

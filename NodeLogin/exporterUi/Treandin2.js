@@ -21,15 +21,16 @@ function parse(str) {
     return str.replace(/%s/g, () => args[i++]);
   }
 module.exports = () => {
-router.get("/",(req,res)=> {
-    sqlRequest.query(parse("SELECT * FROM dbo.VegetableImports WHERE ImportYear=2020 OR ImportYear=2021 ORDER BY Vegetable"), (err,rows) => {
+router.post("/",(req,res)=> {
+    console.log("came here")
+    sqlRequest.query(parse("SELECT * FROM dbo.VegetableImports WHERE ImportYear=2019 OR ImportYear=2020 ORDER BY Vegetable"), (err,rows) => {
         if(err){console.log(err);}   
         else{
             array1=[];
             array2=[];
             for(var k=0;k<rows.rowsAffected[0];k++)
             {
-                if(rows.recordset[k].ImportYear==2020){
+                if(rows.recordset[k].ImportYear==2019){
                     array1.push(rows.recordset[k]);}
                     else{
                         array2.push(rows.recordset[k]);

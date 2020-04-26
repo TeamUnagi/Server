@@ -4,7 +4,8 @@ const notificationFront=require('./notificationFront')
 const notificationBack=require('./notificationBack')
 const ContractInfoToFarmer=require('./showContractInfo')
 const FarmerContracts=require('./contracts')
-
+const conditionBack=require('./conditionBack')
+const accept=require('./Accept');
 
 const router = express.Router();
 module.exports = () => 
@@ -14,7 +15,8 @@ module.exports = () =>
    router.use('/notificationBack',notificationBack())
    router.use('/sendContractInfoToFarmer',ContractInfoToFarmer());
    router.use('/sendExporterContracts',FarmerContracts());
+   router.use('/conditionBack',conditionBack());
 
-
+   router.use('/Accept',accept())
    return router;
 };

@@ -1,7 +1,7 @@
 const express=require("express");
 const router=express.Router();
 var mysql = require('mssql');
-var dbconfig = require('C:\\Users\\Yeshan\\Documents\\unagiServergit\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
+var dbconfig = require('C:\\Users\\User\\Desktop\\node\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
 try
 {
     mysql.connect(dbconfig.connection, (err) =>{
@@ -28,9 +28,8 @@ router.post("/",(req,res)=> {
 
                message={message:'success',id:rows.recordset[0].id,name:rows.recordset[0].Fullname,category:'Farmer'}
 
-
+                console.log(message)
                res.send(message)
-               console.log(message)
            }else{
             sqlRequest.query(parse("SELECT * FROM dbo.Exporter WHERE Username = '%s' AND Password = '%s'", loginInfo.Username,loginInfo.Password), (err,row) => {
 
@@ -40,7 +39,6 @@ router.post("/",(req,res)=> {
                     message={message:'success',id:row.recordset[0].id,name:row.recordset[0].Fullname,category:'Exporter'}
 
                     res.send(message)
-                    console.log(message)
                 }
                 else{
                     res.send({message:'unsuccessful'})

@@ -1,6 +1,6 @@
 const express=require("express");
 var mysql = require('mssql');
-var dbconfig = require('C:\\Users\\Yeshan\\Documents\\unagiServergit\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
+var dbconfig = require('C:\\Users\\User\\Desktop\\node\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
 const router=express.Router();
 try
 {
@@ -23,18 +23,9 @@ function parse(str) {
     router.post("/",(req,res)=> {
         ContractId=req.body.Contractid
         name=[];
-        sqlRequest.query(parse("SELECT * FROM dbo.Contract WHERE Contractid ", ContractId),(err, row)=>{
+        sqlRequest.query(parse("SELECT C.Vegetable,C.Weight,C.Comment,C.EndDate,E.Number,E.Fullname FROM dbo.Contract as C JOIN dbo.Exporter as E ON C.ExId= E.id WHERE C.Contractid='%s' ", ContractId),(err, row)=>{
             if(err){console.log(err);}
-            for(var i=0;i<row.rowsAffected[0];i++)
-            {
-                name.push({Id:row.recordset[i].Contractid,Name:row.recordset[i].Fullname})
-            }
-            sqlRequest.query(parse("SELECT * FROM dbo.Contract WHERE Contractid ", ContractId),(err, rows)=>{
-                if(err){console.log(err);}
-                else{
-                    
-                }
-            })
+            name.push({Vegetable:row.recordset[0].Vegetable,Weight:row.recordset[0].Weight,Comment:row.recordset[0].Comment,EndDate:row.recordset[0].EndDate,Number:row.recordset[0].Number,Name:row.recordset[0].Fullname})
             res.send(name);
         })
     })

@@ -1,6 +1,6 @@
 const express=require("express");
 var mysql = require('mssql');
-var dbconfig = require('C:\\Users\\Yeshan\\Documents\\unagiServergit\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
+var dbconfig = require('C:\\Users\\User\\Desktop\\node\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
 const router=express.Router();
 try
 {
@@ -22,16 +22,25 @@ function parse(str) {
   module.exports = () => {
     router.post("/",(req,res)=> {
         FarmerId=req.body.FarmerId
-        ExName=[];
         sqlRequest.query(parse("SELECT * FROM dbo.Contract WHERE FarmId =%s AND Accepted='Yes' ", FarmerId),(err, row)=>{
             if(err){console.log(err);}
             message=[];
+            Veges=[];
             for(var j=0;j<row.rowsAffected[0];j++)
             {
-                if(!message.includes(row.recordset[j].Vegetable))
-                message.push({Vegetable:row.recordset[j].Vegetable})
+                if(j==0){message.push({Vegetable:row.recordset[j].Vegetable}); Veges.push(row.recordset[j].Vegetable)}
+                if(!Veges.includes(row.recordset[j].Vegetable))
+                {
+                    Veges.push(row.recordset[j].Vegetable)
+                    message.push({Vegetable:row.recordset[j].Vegetable})
+                 }
             }
-            res.send(message)
+            if(row.rowsAffected[0]==0)
+            {
+                res.send({Vegetable:"No"})
+            }
+            else{
+            res.send(message)}
         })
     })
     return router;
