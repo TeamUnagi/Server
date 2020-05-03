@@ -8,6 +8,10 @@ const UpdateFarmerDescription=require('./farmerDescription')
 const Trending2=require("./Treandin2");
 const DisplayDistrics=require('./DisplayDistricts')
 const MapTable=require('./MapTable')
+const showAccNotifications=require('./showAcceptedNotifications')
+const showAccNotificationsDescription=require('./showNotificationDescription')
+
+
 
 
 const router = express.Router();
@@ -23,6 +27,9 @@ module.exports = () =>
     router.use('/updateFarmerData',UpdateFarmerDescription());
     router.use('/sendFarmerLocations',DisplayDistrics());
     router.use('/VegetableImports2',Trending2())
+    router.use('/AcceptedContracts',showAccNotifications())
+    router.use('/AcceptedContractsDescriptions',showAccNotificationsDescription())
+
 
      return router;
 };
