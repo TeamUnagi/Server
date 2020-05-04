@@ -1,7 +1,7 @@
 const express=require("express");
 const router=express.Router();
 var mysql = require('mssql');
-var dbconfig = require('C:\\Users\\User\\Desktop\\node\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
+var dbconfig = require('C:\\Users\\User\\Desktop\\unagiserver\\Server\\NodeLogin\\Database\\database.js'); 
 
 try
 {
@@ -21,7 +21,7 @@ function parse(str) {
     return str.replace(/%s/g, () => args[i++]);
   }
 module.exports = () => {
-router.get("/",(req,res)=> {
+router.post("/",(req,res)=> {
     sqlRequest.query(parse("SELECT * FROM dbo.VegetableImports WHERE ImportYear=2020 OR ImportYear=2021 ORDER BY Vegetable"), (err,rows) => {
         if(err){console.log(err);}   
         else{
@@ -53,6 +53,7 @@ router.get("/",(req,res)=> {
                         array1.splice(Lposition,1);
                         array2.splice(Lposition,1);
                     }
+                    console.log(Torder)
                     res.send(Torder);  
         }
         });

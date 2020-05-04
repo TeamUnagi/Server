@@ -1,7 +1,7 @@
 const express=require("express");
 const router=express.Router();
 var mysql = require('mssql');
-var dbconfig = require('C:\\Users\\User\\Desktop\\node\\ServerSideUnagi\\NodeLogin\\Database\\database.js'); 
+var dbconfig = require('C:\\Users\\User\\Desktop\\unagiserver\\Server\\NodeLogin\\Database\\database.js'); 
 const PORT=4000;
 try
 {
@@ -39,8 +39,8 @@ sqlRequest.query(parse("SELECT * FROM dbo.Farmer WHERE Email = '%s' ", userinfo.
             }
             else{
                 message.message='success'
-                sqlRequest.query(parse("INSERT INTO dbo.Farmer (Username,Password,Email,Location,Fullname) values ('%s', '%s','%s','%s','%s')",
-                userinfo.Username,userinfo.Password,userinfo.Email,userinfo.Location,userinfo.Fullname),(err)=>{
+                sqlRequest.query(parse("INSERT INTO dbo.Farmer (Username,Password,Email,Location,Fullname,Description,Number) values ('%s', '%s','%s','%s','%s','%s','%s')",
+                userinfo.Username,userinfo.Password,userinfo.Email,userinfo.Location,userinfo.Fullname,userinfo.Description,userinfo.Number),(err)=>{
                     if(err)
                      {console.log(err)}
                     else{
