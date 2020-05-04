@@ -24,7 +24,7 @@ function parse(str) {
 module.exports = () => {
     router.post("/", (req,res) => {
         Message = [];
-        contractId = req.body.ContractId;
+        contractId = req.body.contractId;
         sqlRequest.query(parse("SELECT ex.Fullname AS ExporterName, cn.Vegetable AS ExporterVegetables, cn.Contractid AS ContractId, cn.Weight AS Weight, cn.EndDate AS EndDate, cn.Comment AS Comment FROM dbo.Exporter AS ex JOIN dbo.Contract AS cn ON ex.id = cn.ExId WHERE cn.Contractid = '%s' ",contractId) , (err,row) => {
             if(err){console.log(err);}
             else{
